@@ -34,7 +34,7 @@ public class NotasMaterias {
          
             cb.execute();
             
-            JOptionPane.showMessageDialog(null, "Persona agregada","Mensje sistems",1);
+            JOptionPane.showMessageDialog(null, "Notas agregadas",);
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex.toString(),"Mensje sistems",1);
             
