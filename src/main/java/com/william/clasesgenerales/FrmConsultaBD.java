@@ -5,9 +5,11 @@
 package com.william.clasesgenerales;
 
 import DAO.Estudiantes;
+import DAO.MateriaDao;
 import DAO.Notas;
 import DAO.NotasMaterias;
 import Entidades.Estudiante;
+import Entidades.Materia;
 import Entidades.Nota;
 import com.william.BD.ConexionAMYSQL;
 import java.util.ArrayList;
@@ -56,7 +58,7 @@ public class FrmConsultaBD extends javax.swing.JFrame {
         tbEstu = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         cbEstu = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbMateria = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -164,7 +166,7 @@ public class FrmConsultaBD extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                 .addGap(29, 29, 29))
         );
         jPanel4Layout.setVerticalGroup(
@@ -179,10 +181,10 @@ public class FrmConsultaBD extends javax.swing.JFrame {
 
         cbEstu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        cbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                cbMateriaActionPerformed(evt);
             }
         });
 
@@ -218,9 +220,9 @@ public class FrmConsultaBD extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jButton4)
                         .addComponent(txtNota)
-                        .addComponent(jComboBox2, 0, 325, Short.MAX_VALUE)
+                        .addComponent(cbMateria, 0, 325, Short.MAX_VALUE)
                         .addComponent(cbEstu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +234,7 @@ public class FrmConsultaBD extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,7 +265,7 @@ public class FrmConsultaBD extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -280,14 +282,11 @@ public class FrmConsultaBD extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jTabbedPane1)
-                .addGap(10, 10, 10))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -323,27 +322,30 @@ public class FrmConsultaBD extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         
-//        Nota n = new Nota();
-//        NotasMaterias esDao = new NotasMaterias();
-//        
-//        e.setNombre(txtNombre.getText());
-//        e.setApellido(txtApellido.getText());
-//        e.setFechadeNcimiento(jDateChooser1.getDate());
-//        esDao.AddEstudiante(e);
-//        cargar();
-//        
+        Nota n = new Nota();
+        NotasMaterias esDao = new NotasMaterias();
         
+        n.setIdEstudiante (Valuemember[cbEstu.getSelectedIndex()]);
+        n.setIdMateria(MATERIA[cbMateria.getSelectedIndex()]);
+        n.setNota(txtNota.getText());
+        esDao.AddNota(n);
+        cargar();
         
-//    int id =  Valuemember [cbEstu.getSelectedIndex()];
-//    JOptionPane.showMessageDialog(null, id);
-//    
+    int id =  Valuemember [cbEstu.getSelectedIndex()];
+    JOptionPane.showMessageDialog(null, id);
+    
 
     
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    private void cbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMateriaActionPerformed
+
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_cbMateriaActionPerformed
 
     private void txtNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNotaActionPerformed
         // TODO add your handling code here:
@@ -351,6 +353,7 @@ public class FrmConsultaBD extends javax.swing.JFrame {
 
      
      int Valuemember[];
+     int MATERIA[];
     public void cargar() {
         String titulos[] = {"NOMBRE", "NACIMIENTO", "NOMBRE MATERIA"};
         DefaultTableModel df = new DefaultTableModel(null, titulos);
@@ -404,12 +407,32 @@ public class FrmConsultaBD extends javax.swing.JFrame {
                 intContador++;
            
             }
+            
             cbEstu.setModel(DefaultComboBoxModel);
-        
+            MateriaDao mat = new MateriaDao();
+            
+             ArrayList<Materia> Materia = mat.ListadoMateria();
+            Iterator in = Materia.iterator();
+            DefaultComboBoxModel Default = new DefaultComboBoxModel();
+            Default.removeAllElements();
+            cbMateria.removeAll();
+            String List[] = new String[3];
+             MATERIA= new int[Materia.size()];
+           
+            int intConta = 0;
+            
+            while (in.hasNext()) {
+                Materia Cls;
+                Cls = (Materia) in.next();
+               MATERIA[intConta] = Cls.getIdMateria();
+                 
+                Default.addElement(Cls.getNombreMateria());
+                intConta++;
+            cbMateria.setModel(Default);   
+            }
+   
     }
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -445,11 +468,11 @@ public class FrmConsultaBD extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TbInscritos;
     private javax.swing.JComboBox<String> cbEstu;
+    private javax.swing.JComboBox<String> cbMateria;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

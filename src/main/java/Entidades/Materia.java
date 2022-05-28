@@ -10,6 +10,15 @@ package Entidades;
  */
 public class Materia {
     
+    int IdMateria;
+
+    public int getIdMateria() {
+        return IdMateria;
+    }
+
+    public void setIdMateria(int IdMateria) {
+        this.IdMateria = IdMateria;
+    }
     String NombreMateria;
 
     public String getNombreMateria() {
